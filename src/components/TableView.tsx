@@ -1,6 +1,6 @@
 import Button from "./Reusable/Button"
 
-const TableView = ({todoList , handleStatus , formatDate}) => {
+const TableView = ({todoList , handleStatus , formatDate , data}) => {
   return (
     <table className="table table-bordered">
           <thead>
@@ -17,7 +17,9 @@ const TableView = ({todoList , handleStatus , formatDate}) => {
             </tr>
           </thead>
           <tbody>
-            {todoList?.map((list) => (
+            {
+              data.length ? 
+            data?.map((list) => (
               <tr key={list.id}>
                 <th scope="row">
                   <input type="checkbox" />
@@ -34,7 +36,28 @@ const TableView = ({todoList , handleStatus , formatDate}) => {
 
                 </td>
               </tr>
-            ))}
+            )) :
+
+            todoList?.map((list) => (
+              <tr key={list.id}>
+                <th scope="row">
+                  <input type="checkbox" />
+                </th>
+                <td>{list.title}</td>
+
+                {/* <td> {format(date , "EEEE MM, yyyy")}</td> */}
+                <td> {formatDate(list.dateTody)}</td>
+
+                <td className="d-flex justify-content-center">
+
+                <Button type="button"   onClick={() => handleStatus(list.id)}  text={list.status} />
+
+
+                </td>
+              </tr>
+            ))
+            
+            }
           </tbody>
         </table>
   )

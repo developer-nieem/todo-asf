@@ -1,4 +1,4 @@
-const FilterLayout = ({ setView, layoutName, idName, label }) => {
+const FilterLayout = ({ setView, layoutName, idName, label,  checked }) => {
   return (
     <div className="form-check">
       <input
@@ -7,9 +7,10 @@ const FilterLayout = ({ setView, layoutName, idName, label }) => {
         type="radio"
         name="flexRadioDefault"
         id={idName}
+        checked ={checked}
       />
       <label className="form-check-label" for={label}>
-        List View
+       {layoutName}
       </label>
     </div>
   );

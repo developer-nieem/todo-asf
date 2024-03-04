@@ -3,12 +3,19 @@ import AddTodoModal from "./AddTodoModal";
 import DisplayTodo from "./DisplayTodo";
 import Filter from "./Filter";
 import Button from "./Reusable/Button";
-import ITodo from "../types/todo";
 
 const Todo = () => {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([
+    {id : "1524465" , title: "hello" , dateTody: new Date() , status: "Running"},
+    {id : "1524466" , title: "Nieem" , dateTody: new Date() , status: "Running"},
+    {id : "1524467" , title: "Hasan" , dateTody: new Date() , status: "Running"},
+    {id : "1524468" , title: "Kasem" , dateTody: new Date() , status: "Running"},
+
+  ]);
   const [view, setView] = useState("list");
   const [openModal, setOpenModal] = useState(false);
+  const [data , setData] = useState([]);
+const [filterStatus , setFilterStatus] = useState('all')
 
   // Add todo function
   const handleSubmit = (e) => {
@@ -25,19 +32,64 @@ const Todo = () => {
   // Update Status
 
   const handleStatus = (_id : string) => {
-    const updatedList = todoList.map((list)  => {
+    // const updatedList = todoList.map((list)  => {
+    //   if (list.id === _id) {
+    //     return { ...list, status: "Complete" };
+    //   }
+    //   return list;
+    // });
+
+    // setTodoList(updatedList)
+    setTodoList((prev) => prev.map((list)  => {
       if (list.id === _id) {
-        return { ...list, status: "Complete" };
+        list.status= "Complete"
+        return list 
       }
       return list;
-    });
-
-    setTodoList(updatedList)
-    console.log(updatedList, "ipdate");
+    }))
+  
   };
 
+    const handleSearch = (e) => {
 
-  console.log(todoList, "main");
+  console.log(e.target.value);
+  
+   const filter = todoList.filter((list, index, array )=> {
+    
+    
+  
+    if (list.title.includes(e.target.value)) {
+      return list
+    }
+   
+
+  
+  
+  })
+
+
+   if (filter.length) {
+    setData(filter)
+    
+   }
+
+    }
+
+const handStatusFilter = (value) => {
+     console.log(value);
+     
+     const filter = todoList.filter(list => list.status.toLowerCase() == value.toLowerCase());
+
+     if (filter) {
+     setTodoList(filter)
+      
+     }else{
+      setTodoList(todoList)
+     }
+
+     
+}
+
   return (
     <>
       <div className="container mt-5">
@@ -47,6 +99,7 @@ const Todo = () => {
               type="text"
               className="form-control"
               placeholder="Enter Search Term"
+              onChange={handleSearch}
             />
           </div>
           <div className="col-md-2">
@@ -56,7 +109,7 @@ const Todo = () => {
 
         {/* Filter Part */}
 
-        <Filter setView={setView} />
+        <Filter view={view} setView={setView}  handStatusFilter={handStatusFilter}/>
 
         {/* Display ToDO */}
 
@@ -64,6 +117,7 @@ const Todo = () => {
           todoList={todoList}
           view={view}
           handleStatus={handleStatus}
+          data ={data}
         />
       </div>
 
