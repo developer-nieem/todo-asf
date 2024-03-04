@@ -1,33 +1,37 @@
+import Button from "./Reusable/Button";
 
-const AddTodoModal = ({handleSubmit}) => {
-
-
+const AddTodoModal = ({ handleSubmit, openModal, setOpenModal }) => {
+ 
 
   return (
-    <div>
-      {/* Modal Button */}
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    New
-    </button>
-                {/* Modal  */}
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Add ToDo</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <form onSubmit={handleSubmit}>
-                            <input className="form-control" type="text" placeholder="title" id="title" required/>
-                            <button className="btn btn-primary mt-1"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Add Todo</button>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-                </div>
-    </div>
-  )
-}
+    <div
+      className={`shadow-lg rounded custom-modal p-3   ${
+        openModal ? "d-block" : "d-none"
+      }`}
+    >
+      <div className="d-flex justify-content-between">
+        <h1 className="modal-title fs-5">Add ToDo</h1>
+        <button
+          type="button"
+          className="btn-close"
+          onClick={() => setOpenModal(false)}
+        ></button>
+      </div>
 
-export default AddTodoModal
+        <form onSubmit={handleSubmit}>
+          <input
+            className="form-control mb-1"
+            type="text"
+            placeholder="title"
+            id="title"
+            required
+          />
+      
+          <Button type="submit" text="Add Todo" onClick={() => setOpenModal(false)} />
+        </form>
+      
+    </div>
+  );
+};
+
+export default AddTodoModal;
