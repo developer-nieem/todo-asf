@@ -1,5 +1,4 @@
 import { useState } from "react";
-import {format } from "date-fns";
 import AddTodoModal from "./AddTodoModal"
 import DisplayTodo from "./DisplayTodo";
 import Filter from "./Filter";
@@ -8,7 +7,7 @@ const Todo = () => {
 
     const [todoList , setTodoList] =useState([])
     const [ view , setView] = useState('list');
-    const [updateStatus , setUpdateStatus] = useState(false)
+
    
  
 
@@ -19,28 +18,32 @@ const Todo = () => {
              
             const title = e.target.title.value
             const id =  Math.round(Math.random()*10000).toString();
+            const status = "Running"
 
-            setTodoList([...todoList , {id , title, dateTody: new Date() }])
+            setTodoList([...todoList , {id , title, dateTody: new Date() , status }])
             e.target.title.value = ""
         }
 
 
         // Update Status
 
-     const handleStatus = (_id) => {
-        const find =  todoList.find(list  => list.id === _id)
+        const handleStatus = (_id) => {
+        
+          const updatedList = todoList.map(list => {
+                  if (list.id === _id) {
+                      return { ...list, status: 'Complete' }; 
+                  }
+                  return list;
+              });
+      
 
+          setTodoList(updatedList);
+      }
+
+
+      console.log(todoList);
+      
     
-        
-        if (find.id == _id) {
-            setUpdateStatus(true)
-        }
-
-        
-  
-       
-     }
-
 
   return (
     <div className="container mt-5">
@@ -64,7 +67,7 @@ const Todo = () => {
 
         {/* Display ToDO */}
 
-        <DisplayTodo todoList={todoList} view ={view}  handleStatus={handleStatus} updateStatus={updateStatus}/>
+        <DisplayTodo todoList={todoList} view ={view}  handleStatus={handleStatus} />
 
 
     </div>

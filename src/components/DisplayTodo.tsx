@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-const DisplayTodo = ({ todoList, view, handleStatus, updateStatus }) => {
+const DisplayTodo = ({ todoList, view, handleStatus }) => {
   const days = [
     "Sunday",
     "Monday",
@@ -34,8 +34,7 @@ const DisplayTodo = ({ todoList, view, handleStatus, updateStatus }) => {
                 className="btn btn-primary"
                 onClick={() => handleStatus(list.id)}
               >
-                {" "}
-                {updateStatus ? "Complete" : "Running"}{" "}
+               {list.status}
               </button>
             </li>
           ))}
