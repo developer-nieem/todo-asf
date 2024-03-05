@@ -86,6 +86,7 @@ const handStatusFilter = (value) => {
      }else{
       setTodoList(todoList)
      }
+console.log("todo");
 
      
 }
