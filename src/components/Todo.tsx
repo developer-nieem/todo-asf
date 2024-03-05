@@ -15,7 +15,7 @@ const Todo = () => {
   const [view, setView] = useState("list");
   const [openModal, setOpenModal] = useState(false);
   const [data , setData] = useState([]);
-  const [filterStatus , setFilterStatus] = useState('all')
+  const [filterStatusActive , setFilterStatusActive] = useState("all")
 
 
   useEffect(() => {
@@ -58,27 +58,32 @@ const Todo = () => {
 
 
   const handleSearch = (e) => {
-
-   const filter = todoList.filter((list )=> {
+  e.target.value.includes(e.target.value)
+  if(e.target.value){
+  const filter = todoList.filter((list )=> {
 
     if (list.title.includes(e.target.value)) {
       return list
     }
   
-  })
 
-   if (filter.length) {
+  })
+  
+  if (filter.length) {
     setData(filter)
     
    }else{
-    setData(todoList)
+    setData([])
    }
-    }
 
 
+  }else{
+    setData(todoList)
+  }
+}
 
     const handStatusFilter = (value) => {
-    
+      setFilterStatusActive(value)
       if (value.toLowerCase() === 'all') {
         setData(todoList)
       } else {
@@ -106,7 +111,7 @@ const Todo = () => {
 
         {/* Filter Part */}
 
-        <Filter view={view} setView={setView}  handStatusFilter={handStatusFilter}/>
+        <Filter view={view} setView={setView}  handStatusFilter={handStatusFilter} filterStatusActive={filterStatusActive} />
 
         {/* Display ToDO */}
 
@@ -115,7 +120,7 @@ const Todo = () => {
           view={view}
           handleStatus={handleStatus}
           data ={data}
-          filterStatus={filterStatus}
+          
         />
       </div>
 

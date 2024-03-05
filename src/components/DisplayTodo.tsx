@@ -1,7 +1,7 @@
 import ListView from "./ListView";
 import TableView from "./TableView";
 
-const DisplayTodo = ({ todoList, view, handleStatus, data, filterStatus }) => {
+const DisplayTodo = ({ todoList, view, handleStatus, data }) => {
   const days = [
     "Sunday",
     "Monday",
@@ -23,7 +23,7 @@ const DisplayTodo = ({ todoList, view, handleStatus, data, filterStatus }) => {
           handleStatus={handleStatus}
           formatDate={formatDate}
           data={data}
-          filterStatus={filterStatus}
+          
         />
       ) : (
         <TableView

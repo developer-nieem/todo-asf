@@ -2,7 +2,7 @@ import FilterGroupBtn from "./FilterGroupBtn";
 import Button from "./Reusable/Button";
 import FilterLayout from "./Reusable/FilterLayout";
 
-const Filter = ({ setView , view , handStatusFilter }) => {
+const Filter = ({ setView , view , handStatusFilter , filterStatusActive }) => {
     const func = () =>{
 
     }
@@ -10,9 +10,9 @@ const Filter = ({ setView , view , handStatusFilter }) => {
     <div className="row my-3">
       <div className="col-md-4">
         <FilterGroupBtn  >
-            <Button type="button" text="All" onClick={ () => handStatusFilter("all") } />
-            <Button type="button" text="Complete" onClick={ () => handStatusFilter("complete") } />
-            <Button type="button" text="Running" onClick={ () => handStatusFilter("running") } />  
+            <Button type="button" text="All" btnStyle={`${filterStatusActive == "all" && "bg-info"}`}  onClick={ () => handStatusFilter("all") } />
+            <Button type="button" text="Complete" btnStyle={`${filterStatusActive == "complete" && "bg-info"}`} onClick={ () => handStatusFilter("complete") } />
+            <Button type="button" text="Running" btnStyle={`${filterStatusActive == "running" && "bg-info"}`} onClick={ () => handStatusFilter("running") } />  
         </FilterGroupBtn>
 
         
