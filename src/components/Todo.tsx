@@ -52,43 +52,36 @@ const [filterStatus , setFilterStatus] = useState('all')
 
     const handleSearch = (e) => {
 
-  console.log(e.target.value);
-  
-   const filter = todoList.filter((list, index, array )=> {
-    
-    
-  
+   const filter = todoList.filter((list )=> {
+
     if (list.title.includes(e.target.value)) {
       return list
     }
-   
-
-  
   
   })
-
 
    if (filter.length) {
     setData(filter)
     
    }
-
     }
 
-const handStatusFilter = (value) => {
-     console.log(value);
-     
-     const filter = todoList.filter(list => list.status.toLowerCase() == value.toLowerCase());
 
-     if (filter) {
-     setTodoList(filter)
-      
-     }else{
-      setTodoList(todoList)
-     }
 
-     
-}
+    const handStatusFilter = (value) => {
+    
+      if (value.toLowerCase() === 'all') {
+        setFilterStatus(todoList)
+      } else {
+        const  filteredList = todoList.filter(list => list.status.toLowerCase() === value.toLowerCase());
+        setFilterStatus(filteredList)
+      }
+  
+      // setTodoList(filteredList);
+  }
+  
+  console.log(filterStatus);
+  
 
   return (
     <>
@@ -118,6 +111,7 @@ const handStatusFilter = (value) => {
           view={view}
           handleStatus={handleStatus}
           data ={data}
+          filterStatus={filterStatus}
         />
       </div>
 

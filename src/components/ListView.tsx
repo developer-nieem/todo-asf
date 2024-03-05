@@ -1,7 +1,10 @@
 import Button from "./Reusable/Button"
 
 
-const ListView = ({todoList , handleStatus , formatDate , data}) => {
+const ListView = ({todoList , handleStatus , formatDate , data , filterStatus}) => {
+ 
+
+ 
   return (
     
         <ol className="list-group ">
