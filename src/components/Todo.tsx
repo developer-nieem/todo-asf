@@ -15,7 +15,7 @@ const Todo = () => {
   const [view, setView] = useState("list");
   const [openModal, setOpenModal] = useState(false);
   const [data , setData] = useState([]);
-const [filterStatus , setFilterStatus] = useState('all')
+  const [filterStatus , setFilterStatus] = useState('all')
 
   // Add todo function
   const handleSubmit = (e) => {
