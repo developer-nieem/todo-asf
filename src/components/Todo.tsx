@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTodoModal from "./AddTodoModal";
 import DisplayTodo from "./DisplayTodo";
 import Filter from "./Filter";
@@ -16,6 +16,12 @@ const Todo = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data , setData] = useState([]);
   const [filterStatus , setFilterStatus] = useState('all')
+
+
+  useEffect(() => {
+    setData(todoList)
+  }, [todoList])
+
 
   // Add todo function
   const handleSubmit = (e) => {
@@ -50,46 +56,36 @@ const Todo = () => {
   
   };
 
-    const handleSearch = (e) => {
 
-  console.log(e.target.value);
-  
-   const filter = todoList.filter((list, index, array )=> {
-    
-    
-  
+  const handleSearch = (e) => {
+
+   const filter = todoList.filter((list )=> {
+
     if (list.title.includes(e.target.value)) {
       return list
     }
-   
-
-  
   
   })
-
 
    if (filter.length) {
     setData(filter)
     
+   }else{
+    setData(todoList)
    }
-
     }
 
-const handStatusFilter = (value) => {
-     console.log(value);
-     
-     const filter = todoList.filter(list => list.status.toLowerCase() == value.toLowerCase());
 
-     if (filter) {
-     setTodoList(filter)
-      
-     }else{
-      setTodoList(todoList)
-     }
-console.log("todo");
 
-     
-}
+    const handStatusFilter = (value) => {
+    
+      if (value.toLowerCase() === 'all') {
+        setData(todoList)
+      } else {
+        const filteredList = todoList.filter(list => list.status.toLowerCase() === value.toLowerCase());
+        setData(filteredList)
+      }
+  }
 
   return (
     <>
@@ -119,6 +115,7 @@ console.log("todo");
           view={view}
           handleStatus={handleStatus}
           data ={data}
+          filterStatus={filterStatus}
         />
       </div>
 
