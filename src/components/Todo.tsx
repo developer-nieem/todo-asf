@@ -20,6 +20,9 @@ const Todo = () => {
     setData(todoList);
   }, [todoList]);
 
+
+
+
   // Add todo function
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,6 +76,8 @@ const Todo = () => {
     }
   };
 
+
+  
   const handStatusFilter = (value) => {
     setFilterStatusActive(value);
     if (value.toLowerCase() === "all") {
@@ -84,6 +89,9 @@ const Todo = () => {
       setData(filteredList);
     }
   };
+
+
+
 
   return (
     <>
