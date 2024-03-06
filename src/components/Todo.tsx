@@ -6,22 +6,19 @@ import Button from "./Reusable/Button";
 
 const Todo = () => {
   const [todoList, setTodoList] = useState([
-    {id : "1524465" , title: "hello" , dateTody: new Date() , status: "Running"},
-    {id : "1524466" , title: "Nieem" , dateTody: new Date() , status: "Running"},
-    {id : "1524467" , title: "Hasan" , dateTody: new Date() , status: "Running"},
-    {id : "1524468" , title: "Kasem" , dateTody: new Date() , status: "Running"},
-
+    { id: "1524465", title: "hello", dateTody: new Date(), status: "Running" },
+    { id: "1524466", title: "Nieem", dateTody: new Date(), status: "Running" },
+    { id: "1524467", title: "Hasan", dateTody: new Date(), status: "Running" },
+    { id: "1524468", title: "Kasem", dateTody: new Date(), status: "Running" },
   ]);
   const [view, setView] = useState("list");
   const [openModal, setOpenModal] = useState(false);
-  const [data , setData] = useState([]);
-  const [filterStatusActive , setFilterStatusActive] = useState("all")
-
+  const [data, setData] = useState([]);
+  const [filterStatusActive, setFilterStatusActive] = useState("all");
 
   useEffect(() => {
-    setData(todoList)
-  }, [todoList])
-
+    setData(todoList);
+  }, [todoList]);
 
   // Add todo function
   const handleSubmit = (e) => {
@@ -37,7 +34,7 @@ const Todo = () => {
 
   // Update Status
 
-  const handleStatus = (_id : string) => {
+  const handleStatus = (_id: string) => {
     // const updatedList = todoList.map((list)  => {
     //   if (list.id === _id) {
     //     return { ...list, status: "Complete" };
@@ -46,51 +43,47 @@ const Todo = () => {
     // });
 
     // setTodoList(updatedList)
-    setTodoList((prev) => prev.map((list)  => {
-      if (list.id === _id) {
-        list.status= "Complete"
-        return list 
-      }
-      return list;
-    }))
-  
+    setTodoList((prev) =>
+      prev.map((list) => {
+        if (list.id === _id) {
+          list.status = "Complete";
+          return list;
+        }
+        return list;
+      })
+    );
   };
 
-
   const handleSearch = (e) => {
-  e.target.value.includes(e.target.value)
-  if(e.target.value){
-  const filter = todoList.filter((list )=> {
 
-    if (list.title.includes(e.target.value)) {
-      return list
-    }
-  
+    if (e.target.value) {
+      const filter = data.filter((list) => {
+        if (list.title.includes(e.target.value)) {
+          return list;
+        }
+      });
 
-  })
-  
-  if (filter.length) {
-    setData(filter)
-    
-   }else{
-    setData([])
-   }
-
-
-  }else{
-    setData(todoList)
-  }
-}
-
-    const handStatusFilter = (value) => {
-      setFilterStatusActive(value)
-      if (value.toLowerCase() === 'all') {
-        setData(todoList)
+      if (filter.length) {
+        setData(filter);
       } else {
-        const filteredList = todoList.filter(list => list.status.toLowerCase() === value.toLowerCase());
-        setData(filteredList)
+        setData([]);
       }
-  }
+    } else {
+      setData(todoList);
+    }
+  };
+
+  const handStatusFilter = (value) => {
+    setFilterStatusActive(value);
+    if (value.toLowerCase() === "all") {
+      setData(todoList);
+    } else {
+      const filteredList = todoList.filter(
+        (list) => list.status.toLowerCase() === value.toLowerCase()
+      );
+      setData(filteredList);
+    }
+  };
 
   return (
     <>
@@ -105,13 +98,22 @@ const Todo = () => {
             />
           </div>
           <div className="col-md-2">
-           <Button type="button" text="New"  onClick={() => setOpenModal(true)}/>
+            <Button
+              type="button"
+              text="New"
+              onClick={() => setOpenModal(true)}
+            />
           </div>
         </div>
 
         {/* Filter Part */}
 
-        <Filter view={view} setView={setView}  handStatusFilter={handStatusFilter} filterStatusActive={filterStatusActive} />
+        <Filter
+          view={view}
+          setView={setView}
+          handStatusFilter={handStatusFilter}
+          filterStatusActive={filterStatusActive}
+        />
 
         {/* Display ToDO */}
 
@@ -119,8 +121,7 @@ const Todo = () => {
           todoList={todoList}
           view={view}
           handleStatus={handleStatus}
-          data ={data}
-          
+          data={data}
         />
       </div>
 
