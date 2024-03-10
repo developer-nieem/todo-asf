@@ -15,7 +15,7 @@ const Todo = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState([]);
   const [filterStatusActive, setFilterStatusActive] = useState("all");
-  const [searchTerm, setSearchTerm] = useState(""); // New state for the search term
+  const [searchTerm, setSearchTerm] = useState("");
 
 
   // useEffect(() => {
