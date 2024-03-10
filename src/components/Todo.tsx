@@ -46,6 +46,7 @@ const Todo = () => {
     // });
 
     // setTodoList(updatedList)
+
     setTodoList((prev) => prev.map((list)  => {
       if (list.id === _id) {
         list.status= "Complete"
@@ -58,11 +59,11 @@ const Todo = () => {
 
 
   const handleSearch = (e) => {
-  e.target.value.includes(e.target.value)
+ 
   if(e.target.value){
   const filter = todoList.filter((list )=> {
 
-    if (list.title.includes(e.target.value)) {
+    if (list.title.toLowerCase().includes(e.target.value.toLowerCase())) {
       return list
     }
   
