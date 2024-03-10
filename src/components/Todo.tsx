@@ -55,7 +55,9 @@ const Todo = () => {
         return list;
       })
     );
+
   };
+
 
   const handleSearch = (e) => {
 
@@ -77,7 +79,7 @@ const Todo = () => {
   };
 
 
-  
+
   const handStatusFilter = (value) => {
     setFilterStatusActive(value);
     if (value.toLowerCase() === "all") {
@@ -91,6 +93,7 @@ const Todo = () => {
   };
 
 
+console.log(filterStatusActive);
 
 
   return (
