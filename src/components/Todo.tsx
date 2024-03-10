@@ -6,21 +6,23 @@ import Button from "./Reusable/Button";
 
 const Todo = () => {
   const [todoList, setTodoList] = useState([
-    {id : "1524465" , title: "hello" , dateTody: new Date() , status: "Running"},
-    {id : "1524466" , title: "Nieem" , dateTody: new Date() , status: "Running"},
-    {id : "1524467" , title: "Hasan" , dateTody: new Date() , status: "Running"},
-    {id : "1524468" , title: "Kasem" , dateTody: new Date() , status: "Running"},
-
+    { id: "1524465", title: "hello", dateTody: new Date(), status: "Running" },
+    { id: "1524466", title: "Nieem", dateTody: new Date(), status: "Running" },
+    { id: "1524467", title: "Hasan", dateTody: new Date(), status: "Running" },
+    { id: "1524468", title: "Kasem", dateTody: new Date(), status: "Running" },
   ]);
   const [view, setView] = useState("list");
   const [openModal, setOpenModal] = useState(false);
-  const [data , setData] = useState([]);
-  const [filterStatusActive , setFilterStatusActive] = useState("all")
-
+  const [data, setData] = useState([]);
+  const [filterStatusActive, setFilterStatusActive] = useState("all");
+  const [search, setSearch] = useState([]);
+  const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
-    setData(todoList)
-  }, [todoList])
+    
+      setData(todoList);
+   
+  }, [ todoList]);
 
 
   // Add todo function
@@ -35,63 +37,102 @@ const Todo = () => {
     e.target.title.value = "";
   };
 
+
   // Update Status
-
-  const handleStatus = (_id : string) => {
-    // const updatedList = todoList.map((list)  => {
-    //   if (list.id === _id) {
-    //     return { ...list, status: "Complete" };
-    //   }
-    //   return list;
-    // });
-
-    // setTodoList(updatedList)
-
-    setTodoList((prev) => prev.map((list)  => {
+  const handleStatus = (_id: string) => {
+    const updatedList = todoList.map((list)  => {
       if (list.id === _id) {
-        list.status= "Complete"
-        return list 
+        return { ...list, status: "Complete" };
       }
       return list;
-    }))
-  
+    });
+
+
+    
+    setTodoList(updatedList)
+    // setTodoList((prev) =>
+    //   prev.map((list) => {
+    //     if (list.id === _id) {
+    //       list.status = "Complete";
+    //       return list;
+    //     }
+    //     return list;
+    //   })
+    // );
   };
 
 
   const handleSearch = (e) => {
- 
-  if(e.target.value){
-  const filter = todoList.filter((list )=> {
 
-    if (list.title.toLowerCase().includes(e.target.value.toLowerCase())) {
-      return list
-    }
-  
+    setSearch(e.target.value.toLowerCase())
+   
 
-  })
-  
-  if (filter.length) {
-    setData(filter)
-    
-   }else{
-    setData([])
-   }
+    if (search) {
+      const searchData = data.filter((list) =>
+        list.title.toLowerCase().includes(search)
+      );
 
-
-  }else{
-    setData(todoList)
-  }
-}
-
-    const handStatusFilter = (value) => {
-      setFilterStatusActive(value)
-      if (value.toLowerCase() === 'all') {
-        setData(todoList)
+      if (filterStatusActive !== "all") {
+        const filteredData = searchData.filter(
+          (list) => list.status.toLowerCase() === filterStatusActive.toLowerCase()
+        );
+      
+        setData(filteredData);
       } else {
-        const filteredList = todoList.filter(list => list.status.toLowerCase() === value.toLowerCase());
-        setData(filteredList)
+      
+        setData(searchData);
       }
-  }
+    } else {
+      if (filterStatusActive !== "all") {
+        const filteredList = todoList.filter(
+          (list) => list.status.toLowerCase() === filterStatusActive.toLowerCase()
+        );
+
+        setData(filteredList);
+      } else {
+        setData(todoList);
+      }
+
+      
+    }
+
+    // if (e.target.value) {
+    //   const searchData = data.filter((list) =>  list.title.toLowerCase().includes(searchTerm) );
+
+    //   console.log({searchData})
+
+    //   if (searchData) {
+    //     setData(searchData)
+    //   } 
+    //   else {
+    //     setData([]);
+    //   }
+    // } else {
+    //   setData(todoList);
+    // }
+
+  };
+
+  const handStatusFilter = (value) => {
+
+    setFilterStatusActive(value);
+
+    if (value.toLowerCase() === "all") {
+      setData(todoList);
+    } else {
+      const filteredList = todoList.filter(
+        (list) => list.status.toLowerCase() === value.toLowerCase()
+      );
+      // setFilterData(filteredList)
+      setData(filteredList);
+    }
+  };
+
+
+
+
+
+  
 
   return (
     <>
@@ -106,13 +147,22 @@ const Todo = () => {
             />
           </div>
           <div className="col-md-2">
-           <Button type="button" text="New"  onClick={() => setOpenModal(true)}/>
+            <Button
+              type="button"
+              text="New"
+              onClick={() => setOpenModal(true)}
+            />
           </div>
         </div>
 
         {/* Filter Part */}
 
-        <Filter view={view} setView={setView}  handStatusFilter={handStatusFilter} filterStatusActive={filterStatusActive} />
+        <Filter
+          view={view}
+          setView={setView}
+          handStatusFilter={handStatusFilter}
+          filterStatusActive={filterStatusActive}
+        />
 
         {/* Display ToDO */}
 
@@ -120,8 +170,7 @@ const Todo = () => {
           todoList={todoList}
           view={view}
           handleStatus={handleStatus}
-          data ={data}
-          
+          data={data}
         />
       </div>
 

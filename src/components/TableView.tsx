@@ -18,8 +18,8 @@ const TableView = ({todoList , handleStatus , formatDate , data}) => {
           </thead>
           <tbody>
             {
-              data.length ? 
-            data?.map((list) => (
+              data.length > 0 ?
+              data?.map((list) => (
               <tr key={list.id}>
                 <th scope="row">
                   <input type="checkbox" />
@@ -36,26 +36,7 @@ const TableView = ({todoList , handleStatus , formatDate , data}) => {
 
                 </td>
               </tr>
-            )) :
-
-            todoList?.map((list) => (
-              <tr key={list.id}>
-                <th scope="row">
-                  <input type="checkbox" />
-                </th>
-                <td>{list.title}</td>
-
-                {/* <td> {format(date , "EEEE MM, yyyy")}</td> */}
-                <td> {formatDate(list.dateTody)}</td>
-
-                <td className="d-flex justify-content-center">
-
-                <Button type="button"   onClick={() => handleStatus(list.id)}  text={list.status} />
-
-
-                </td>
-              </tr>
-            ))
+            )) : <p>Not Found</p>
             
             }
           </tbody>

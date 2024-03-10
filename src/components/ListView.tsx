@@ -4,7 +4,7 @@ import Button from "./Reusable/Button"
 const ListView = ({todoList , handleStatus , formatDate , data }) => {
  
 
-  console.log(data);
+  console.log("data" , data);
   
 
  
