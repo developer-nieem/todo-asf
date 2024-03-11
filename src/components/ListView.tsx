@@ -3,11 +3,8 @@ import Button from "./Reusable/Button"
 
 const ListView = ({todoList , handleStatus , formatDate , data }) => {
  
-
   console.log("data" , data);
-  
 
- 
   return (
     
         <ol className="list-group ">

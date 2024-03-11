@@ -15,14 +15,36 @@ const Todo = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState([]);
   const [filterStatusActive, setFilterStatusActive] = useState("all");
-  const [search, setSearch] = useState("");
-  const [filterData, setFilterData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
     
-      setData(todoList);
+    let filteredData = todoList;
+    console.log("useEff", filteredData);
+
    
-  }, [ todoList]);
+    if (filterStatusActive !== "all") {
+      filteredData = filteredData.filter(
+        (todo) => todo.status.toLowerCase() === filterStatusActive
+      );
+
+      console.log("filtered Data" , filteredData);
+      
+    }
+
+ 
+    if (searchTerm) {
+      filteredData = filteredData.filter((todo) =>
+        todo.title.toLowerCase().includes(searchTerm)
+      );
+      console.log("search DATA" , filteredData);
+    }
+
+    setData(filteredData);
+
+  }, [todoList, searchTerm, filterStatusActive]);
+
 
 
   // Add todo function
@@ -46,99 +68,28 @@ const Todo = () => {
       }
       return list;
     });
-
-
-    
     setTodoList(updatedList)
-    // setTodoList((prev) =>
-    //   prev.map((list) => {
-    //     if (list.id === _id) {
-    //       list.status = "Complete";
-    //       return list;
-    //     }
-    //     return list;
-    //   })
-    // );
+ 
   };
 
 
   const handleSearch = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
 
-    setSearch(e.target.value.toLowerCase())
    
-
-    if (search) {
-      const searchData = data.filter((list) =>
-        list.title.toLowerCase().includes(search)
-      );
-
-      if (filterStatusActive !== "all") {
-        const filteredData = searchData.filter(
-          (list) => list.status.toLowerCase() === filterStatusActive.toLowerCase()
-        );
-      
-        setData(filteredData);
-      } else {
-      
-        setData(searchData);
-      }
-    } else {
-      if (filterStatusActive !== "all") {
-        const filteredList = todoList.filter(
-          (list) => list.status.toLowerCase() === filterStatusActive.toLowerCase()
-        );
-
-        setData(filteredList);
-      } else {
-        setData(todoList);
-      }
-
-      
-    }
-
-    // if (e.target.value) {
-    //   const searchData = data.filter((list) =>  list.title.toLowerCase().includes(searchTerm) );
-
-    //   console.log({searchData})
-
-    //   if (searchData) {
-    //     setData(searchData)
-    //   } 
-    //   else {
-    //     setData([]);
-    //   }
-    // } else {
-    //   setData(todoList);
-    // }
-
-
-
 
   };
 
   const handStatusFilter = (value) => {
+    setFilterStatusActive(value.toLowerCase());
 
-    setFilterStatusActive(value);
-
-    if (value.toLowerCase() === "all") {
-      setData(todoList);
-    } else {
-      const filteredList = todoList.filter(
-        (list) => list.status.toLowerCase() === value.toLowerCase()
-      );
-      // setFilterData(filteredList)
-      setData(filteredList);
-    }
-
-    
-   
-
+  
   };
 
 
 
 
-
+  
 
   return (
     <>
