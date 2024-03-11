@@ -15,7 +15,7 @@ const Todo = () => {
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState([]);
   const [filterStatusActive, setFilterStatusActive] = useState("all");
-  const [search, setSearch] = useState([]);
+  const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
@@ -111,6 +111,9 @@ const Todo = () => {
     //   setData(todoList);
     // }
 
+
+
+
   };
 
   const handStatusFilter = (value) => {
@@ -126,13 +129,16 @@ const Todo = () => {
       // setFilterData(filteredList)
       setData(filteredList);
     }
+
+    
+   
+
   };
 
 
 
 
 
-  
 
   return (
     <>
